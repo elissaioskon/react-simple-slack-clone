@@ -1,7 +1,7 @@
 import { css } from "@emotion/core";
 import styled from "@emotion/styled";
 
-import { dimensions } from "../constants";
+import {dimensions} from '../constants/styledInfo'
 
 export const globalCss = css`
   html,
@@ -23,14 +23,14 @@ export const Container = styled.div`
 `;
 
 export const MainContainer = styled.div`
-  height: calc(100% - ${dimensions.chatBottomHeight}px);
+  height: calc(100% - ${dimensions.bottomHeight}px);
   display: flex;
   font-size: 13px;
 `;
 
 export const MessageListContainer = styled.div`
   height: 100%;
-  width: calc(100% - ${dimensions.chatRightBarWidth}px);
+  width: calc(100% - ${dimensions.rightBarWidth}px);
   overflow: scroll;
   border-right: 1px solid grey;
   border-top: 1px solid grey;
@@ -40,9 +40,8 @@ export const MessageListContainer = styled.div`
 `;
 
 export const BottomContainer = styled.div`
-  height: ${dimensions.chatBottomHeight}px;
+  height: ${dimensions.bottomHeight}px;
   display: flex;
   color: red;
 `;
 
-export const NoChannel = styled.div``;

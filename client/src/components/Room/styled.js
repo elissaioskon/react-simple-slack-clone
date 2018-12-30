@@ -1,11 +1,7 @@
-// External
 import styled from "@emotion/styled";
 
-// Constants
-import { colors } from "../../constants";
-
 export const Container = styled.li(
-  ({ isActive }) => `
+    ({isActive}) => `
   cursor: pointer;
   font-weight: 200;
   text-align: center;
@@ -15,10 +11,10 @@ export const Container = styled.li(
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${isActive ? colors.room.activeBgColor : "inherit"};
+  background-color: ${isActive ? '#3E313C' : "inherit"};
   
   :hover {
-    background-color: ${isActive ? colors.room.activeBgColor : colors.room.hoverBgColor};
+    background-color: ${isActive ? '#31262f' : '#3E313C'};
   }
 `
 );

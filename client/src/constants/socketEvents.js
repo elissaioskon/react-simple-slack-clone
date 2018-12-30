@@ -1,7 +1,4 @@
-export default ({
-    CONNECTION: 'connection',
-    DISCONNECT: 'disconnect',
-
+export default {
     GET_ROOMS: "GET_ROOMS",
 
     ADD_NEW_ROOM: "ADD_NEW_ROOM",
@@ -19,5 +16,4 @@ export default ({
     LEAVE_ROOM: "LEAVE_ROOM",
 
     ALL_DATA_CLEARED: "ALL_DATA_CLEARED"
-})
-
+};

@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
-import { TiPlus as TiPlusUnstyled } from "react-icons/ti";
+import {TiPlus as TiPlusUnstyled} from "react-icons/ti";
 
-import { dimensions, colors } from "../../constants";
+import {dimensions, main} from "../../constants/styledInfo";
 
 export const Container = styled.div`
-  width: ${dimensions.chatRightBarWidth}px;
-  border: 1px solid ${colors.main.borderColor};
-  color: ${colors.main.color};
+  width: ${dimensions.rightBarWidth}px;
+  border: 1px solid ${main.borderColor};
+  color: ${main.color};
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 
@@ -15,7 +15,7 @@ export const Container = styled.div`
 
     :disabled {
       cursor: not-allowed;
-      color: ${colors.main.disabledColor};
+      color: ${main.disabledColor};
     }
   }
 `;

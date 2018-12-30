@@ -9,7 +9,7 @@ import uuid from "uuid/v4";
 import memoize from "memoize-one";
 
 // Utils
-import {socketEvents} from "../constants";
+import socketEvents from "../constants/socketEvents";
 
 // Components
 import SendMessageForm from "../components/SendMessageForm";
@@ -23,7 +23,6 @@ import {
     Container,
     MainContainer,
     BottomContainer,
-    NoChannel,
     MessageListContainer
 } from "./styled";
 
@@ -31,7 +30,6 @@ class Chat extends Component {
     static propTypes = {
         username: PropTypes.string
     };
-
 
     state = {
         socket: io(process.env.REACT_APP_API_URL),
@@ -46,17 +44,15 @@ class Chat extends Component {
     componentDidMount() {
         const {socket} = this.state;
 
-        // Emit get rooms event, server will respond with Send rooms
-        socket.emit(socketEvents.GET_ROOMS);
-
-        // At send rooms save rooms to state
-        socket.on(socketEvents.SEND_ROOMS, rooms =>
-            this.setState({
-                rooms: rooms.map(room => ({
-                    ...room,
-                    isActive: false
-                }))
-            })
+        socket.emit(socketEvents.GET_ROOMS, rooms => {
+                this.setState({
+                    rooms: rooms.map(room => ({
+                        ...room,
+                        isActive: false
+                    })),
+                    isLoading: false
+                })
+            }
         );
 
         // Listen for new rooms and add them to state
@@ -220,36 +216,45 @@ class Chat extends Component {
         } = this.state;
 
         return (
-            <Fragment>
-                <Global styles={globalCss}/>
-
-                <Container>
-                    <MainContainer>
-                        <RoomList rooms={rooms} onRoomClick={this.handleRoomClick}/>
-                        <MessageListContainer>
-                            {!!selectedRoom ? (
-                                <MessageList
-                                    messages={this.formatMessages(selectedRoom)}
-                                    emptyMessage="Channel has no messages yet"
-                                    ref={this.messageListRef}
-                                />
-                            ) : (
-                                <NoChannel>No room selected</NoChannel>
-                            )}
+            < Fragment>
+                < Global
+                    styles={globalCss}
+                />
+                < Container>
+                    < MainContainer>
+                        < RoomList
+                            rooms={rooms}
+                            onRoomClick={this.handleRoomClick}
+                        />
+                        < MessageListContainer>
+                            {
+                                !!selectedRoom ? (
+                                        < MessageList
+                                            messages={this.formatMessages(selectedRoom)}
+                                            emptyMessage="Channel has no messages yet"
+                                            ref={this.messageListRef}
+                                        />
+                                    ) :
+                                    (
+                                        <div> No room selected </div>
+                                    )
+                            }
                         </MessageListContainer>
                     </MainContainer>
 
-                    <BottomContainer>
-                        <NewRoomForm
+                    < BottomContainer>
+                        < NewRoomForm
                             onChange={this.handleNewRoomChange}
                             onSubmit={this.handleNewRoomSubmit}
                             value={newRoomValue}
                         />
-                        <SendMessageForm
+                        < SendMessageForm
                             onSubmit={this.handleSendMessageSubmit}
                             onMessageChange={this.handleSendMessageChange}
                             message={sendMessageInputValue}
-                            isDisabled={!selectedRoom}
+                            isDisabled={
+                                !selectedRoom
+                            }
                             placeholder={
                                 !!selectedRoom ? "Type your Message" : "No room selected"
                             }
@@ -257,7 +262,8 @@ class Chat extends Component {
                     </BottomContainer>
                 </Container>
             </Fragment>
-        );
+        )
+            ;
     }
 }
 

@@ -11,7 +11,7 @@ export default io => {
     io.on(socketEventTypes.CONNECTION, socket => {
         console.log('A client was connected successfully');
 
-        socket.on(socketEventTypes.DISCONNECT, ()=>{
+        socket.on(socketEventTypes.DISCONNECT, () => {
             console.log('user disconnected');
         });
 
@@ -26,13 +26,13 @@ export default io => {
             socket.emit(socketEventTypes.SEND_ROOM_DATA, currentRoom);
 
             // Send to other users that message
-            socket.to(roomName).emit(socketEventTypes.NEW_USER_IN_ROOM, {username,roomName})
-
+            socket.to(roomName).emit(socketEventTypes.NEW_USER_IN_ROOM, {username, roomName})
         });
 
-        socket.on(socketEventTypes.GET_ROOMS, () => {
+        socket.on(socketEventTypes.GET_ROOMS, cb => {
             // Send all room names
-            io.to(socket.id).emit(socketEventTypes.SEND_ROOMS, rooms.map(({name}) => ({name})));
+            const as = rooms.map(({name}) => ({name}))
+            cb(as)
         });
 
 
@@ -43,7 +43,7 @@ export default io => {
             io.emit(socketEventTypes.NEW_ROOM_ADDED, {name: newRoomName});
         });
 
-        socket.on(socketEventTypes.SEND_MESSAGE, ({roomName,message}) => {
+        socket.on(socketEventTypes.SEND_MESSAGE, ({roomName, message}) => {
             const roomIndex = rooms.findIndex(({name}) => name === roomName);
             const newMessage = {...message, id: uuid()};
             rooms[roomIndex].messages.push(newMessage);
@@ -51,7 +51,7 @@ export default io => {
             io.in(roomName).emit(socketEventTypes.NEW_MESSAGE, newMessage);
         });
 
-        socket.on(socketEventTypes.LEAVE_ROOM, roomName=> {
+        socket.on(socketEventTypes.LEAVE_ROOM, roomName => {
             socket.leave(roomName);
         })
     });

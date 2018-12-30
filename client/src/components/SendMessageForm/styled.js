@@ -1,28 +1,28 @@
 import styled from "@emotion/styled";
 
 // Others
-import { dimensions, colors } from "../../constants";
+import {dimensions, main} from "../../constants/styledInfo";
 
-export const Form = styled.form(({ isDisabled }) => {
-  let borderColor = colors.main.borderColor;
-  let color = colors.main.color;
+export const Form = styled.form(({isDisabled}) => {
+    let borderColor = main.borderColor;
+    let color = main.color;
 
-  if (isDisabled) {
-    borderColor = colors.main.disabledBorderColor;
-    color = colors.main.disabledColor;
-  }
+    if (isDisabled) {
+        borderColor = main.disabledBorderColor;
+        color = main.disabledColor;
+    }
 
-  return `
+    return `
   display: flex;
   margin-left: 1px;
-  width: calc(100% - ${dimensions.chatRightBarWidth}px);
+  width: calc(100% - ${dimensions.rightBarWidth}px);
   align-items: center;
   border: 1px solid ${borderColor};
   border-radius: 3px;
   color: ${color};
   
   button {
-   border-left: 1px solid ${colors.main.borderColor};
+   border-left: 1px solid ${main.borderColor};
    
     :disabled {
     cursor: not-allowed;

@@ -1,12 +1,10 @@
 import styled from "@emotion/styled";
 
-import { colors } from "../../constants";
-
 export const Container = styled.ul`
     box-sizing: border-box;
     overflow: scroll;
-    background: ${colors.messageListBgColor}
-    color: ${colors.messageListTextColor}
+    background: '#5ea3d0';
+    color: 'white';
     width:100%;
     margin:unset;
     padding:0;
