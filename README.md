@@ -3,7 +3,7 @@
 A simple slack clone using reactjs, nodejs, socketio. 
 Check online(wait a little for link to load): https://react-slack-clone.herokuapp.com/
 
-![](slack-chat.gif)
+![](app.gif)
 
 ## Getting Started
 
